@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fuba_app/views/homepage/login.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'login.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +13,10 @@ class HomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/op3.jpg'), fit: BoxFit.cover),
+            image: AssetImage('assets/op3.jpg'),
+            fit: BoxFit.cover,
+            opacity: 0.9,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 40, 10, 20),
@@ -41,13 +45,12 @@ class HomePage extends StatelessWidget {
                   ),
                   Text(
                     'Get ahead of the game with our app\'s comprehensive updates and analysis',
-                    style: GoogleFonts.roboto(
-                      fontSize: 21,
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
                       color: Colors.white70,
                     ),
                   ),
-                  const SizedBox(
-                      height: 30), //0392961783 Yunus Lutakoma Kayanja
+                  const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () => Get.to(() => const LoginPage()),
                     child: Container(
