@@ -122,20 +122,27 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: Colors.black),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey,
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black)),
                             child: Center(
                               child: Text(
-                                'Sign in',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                'SIGN IN',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),

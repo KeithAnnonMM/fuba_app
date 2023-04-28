@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fuba_app/controllers/login_controller.dart';
 import 'package:fuba_app/widgets/emailfield.dart';
+import 'package:fuba_app/widgets/submitbutton.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -10,11 +12,15 @@ class SignUpPage extends StatelessWidget {
   final passwordController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  late DateTime birth_date;
+  final dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final LoginController controller = Get.put(LoginController());
+    String selected = 'Albania';
+    bool isChecked = false;
+
+    List<String> countries = controller.countries;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -131,22 +137,79 @@ class SignUpPage extends StatelessWidget {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
                         const SizedBox(height: 10),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 35,
-                              width: 100,
-                              child: ElevatedButton(
-                                  onPressed: () => _selectDate(context),
-                                  child: Center(
-                                    child: Text('Birth Date',
-                                        style:
-                                            GoogleFonts.poppins(fontSize: 14)),
-                                  )),
+                        TextFormField(
+                          controller: dateController,
+                          decoration: InputDecoration(
+                            label: Text('Select Birth Date',
+                                style: GoogleFonts.poppins(fontSize: 14)),
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 0),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
-                          ],
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                          ),
+                          onTap: () => _selectDate(context),
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          textCapitalization: TextCapitalization.none,
+                          autocorrect: true,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
+                        DropdownButtonFormField(
+                          value: selected,
+                          items: countries.map((country) {
+                            return DropdownMenuItem(
+                              value: country,
+                              child: Text(country),
+                            );
+                          }).toList(),
+                          onChanged: (selectedCountry) {
+                            selected = selectedCountry.toString();
+                          },
+                          decoration: const InputDecoration(
+                            labelText: 'Country',
+                            hintText: 'Select your country',
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        CheckboxListTile(
+                          title: Text('I agree to the Terms and Privacy Policy',
+                              style: GoogleFonts.poppins(fontSize: 14)),
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            isChecked = value!;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey,
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black)),
+                            child: Center(
+                              child: Text(
+                                'CREATE ACCOUNT',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   )
@@ -168,8 +231,9 @@ class SignUpPage extends StatelessWidget {
 
     if (picked != null) {
       // print('Date selected: ${picked.toString()}');
-      birth_date = picked;
+      // birth_date = picked;
       // Do something with the selected date here
+      dateController.text = DateFormat('dd/MM/yyyy').format(picked);
     }
   }
 }
