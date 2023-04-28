@@ -149,7 +149,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => Get.to(() => const SignUpPage()),
+                          onTap: () => Get.to(() => SignUpPage()),
                           child: Text(
                             'SignUp',
                             textAlign: TextAlign.center,
