@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fuba_app/controllers/login_controller.dart';
+import 'package:fuba_app/views/signup.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,8 +10,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoginController controller = Get.put(LoginController());
-    final _passwordController = TextEditingController();
-    final _emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final emailController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +59,7 @@ class LoginPage extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: _emailController,
+                          controller: emailController,
                           decoration: InputDecoration(
                             label: Text('Email',
                                 style: GoogleFonts.poppins(fontSize: 14)),
@@ -81,7 +82,7 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(height: 30),
                         Obx(
                           () => TextFormField(
-                            controller: _passwordController,
+                            controller: passwordController,
                             obscureText: controller.isVisible.value,
                             decoration: InputDecoration(
                                 label: Text('Password',
@@ -127,14 +128,14 @@ class LoginPage extends StatelessWidget {
                             height: 55,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
-                                color: Colors.grey[300]),
+                                color: Colors.black),
                             child: Center(
                               child: Text(
                                 'Sign in',
                                 style: GoogleFonts.poppins(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: const Color(0xFF878c94)),
+                                    color: Colors.white),
                               ),
                             ),
                           ),
@@ -148,7 +149,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () => Get.to(() => const SignUpPage()),
                           child: Text(
                             'SignUp',
                             textAlign: TextAlign.center,
