@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../views/homepage/login.dart';
+import '../views/login.dart';
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({

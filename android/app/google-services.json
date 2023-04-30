@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "619458104025",
+    "project_id": "fuba-3269f",
+    "storage_bucket": "fuba-3269f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619458104025:android:ff81422a6bdb9c145d8cc8",
+        "android_client_info": {
+          "package_name": "com.keith.basketball.fuba_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619458104025-cguhioul8516vovui7i5go1e97chmtj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnlLH-5sShOY9b6E_OqNqeWlI8bc42mHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619458104025-cguhioul8516vovui7i5go1e97chmtj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

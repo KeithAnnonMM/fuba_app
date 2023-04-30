@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:fuba_app/controllers/login_controller.dart';
 import 'package:fuba_app/widgets/emailfield.dart';
-import 'package:fuba_app/widgets/submitbutton.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../controllers/auth_controller.dart';
+
 class SignUpPage extends StatelessWidget {
-  SignUpPage({super.key});
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final dateController = TextEditingController();
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final LoginController controller = Get.put(LoginController());
+    // final AuthController actionControl = Get.put(AuthController());
     String selected = 'Albania';
-    bool isChecked = false;
+    final GlobalKey<FormState> key = GlobalKey<FormState>();
 
     List<String> countries = controller.countries;
     return Scaffold(
@@ -56,13 +53,17 @@ class SignUpPage extends StatelessWidget {
               child: Column(
                 children: [
                   Form(
+                    key: key,
                     child: Column(
                       children: [
-                        TextFormFieldEmail(emailController: emailController),
+                        TextFormFieldEmail(
+                            validate: controller.validateEmail,
+                            emailController: controller.emailController),
                         const SizedBox(height: 10),
                         Obx(
                           () => TextFormField(
-                            controller: passwordController,
+                            validator: controller.validatePassword,
+                            controller: controller.passwordController,
                             obscureText: controller.isVisible.value,
                             decoration: InputDecoration(
                                 label: Text('Password',
@@ -94,7 +95,7 @@ class SignUpPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
-                          controller: firstNameController,
+                          controller: controller.firstNameController,
                           decoration: InputDecoration(
                             label: Text('First Name',
                                 style: GoogleFonts.poppins(fontSize: 14)),
@@ -116,7 +117,7 @@ class SignUpPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
-                          controller: lastNameController,
+                          controller: controller.lastNameController,
                           decoration: InputDecoration(
                             label: Text('Last Name',
                                 style: GoogleFonts.poppins(fontSize: 14)),
@@ -138,7 +139,7 @@ class SignUpPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
-                          controller: dateController,
+                          controller: controller.dateController,
                           decoration: InputDecoration(
                             label: Text('Select Birth Date',
                                 style: GoogleFonts.poppins(fontSize: 14)),
@@ -152,7 +153,7 @@ class SignUpPage extends StatelessWidget {
                               borderSide: BorderSide(color: Colors.grey),
                             ),
                           ),
-                          onTap: () => _selectDate(context),
+                          onTap: () => _selectDate(context, controller),
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.none,
@@ -217,7 +218,11 @@ class SignUpPage extends StatelessWidget {
                             color: Colors.grey,
                           ),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (key.currentState!.validate()) {
+                                Get.snackbar('Working', 'Thats good so far');
+                              }
+                            },
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
@@ -246,7 +251,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(BuildContext context, controller) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -257,7 +262,7 @@ class SignUpPage extends StatelessWidget {
       // print('Date selected: ${picked.toString()}');
       // birth_date = picked;
       // Do something with the selected date here
-      dateController.text = DateFormat('dd/MM/yyyy').format(picked);
+      controller.dateController.text = DateFormat('dd/MM/yyyy').format(picked);
     }
   }
 }

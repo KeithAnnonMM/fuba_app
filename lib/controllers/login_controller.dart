@@ -1,7 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   var isVisible = true.obs;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final dateController = TextEditingController();
   List<String> countries = [
     'Afghanistan',
     'Albania',
@@ -226,5 +232,22 @@ class LoginController extends GetxController {
 
   void changeAgreement() {
     isCheckedAgreement.value = !isCheckedAgreement.value;
+  }
+
+  String? validateEmail(String? email) {
+    if (email == null || email.isEmpty) return 'Email can not be empty';
+    String pattern = r'\w+@\w+\.\w+';
+    RegExp reg = RegExp(pattern);
+    if (!reg.hasMatch(email)) {
+      return 'Invalid email format';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? password) {
+    if (password == null || password.isEmpty) {
+      return 'Password can not be empty';
+    }
+    return null;
   }
 }
