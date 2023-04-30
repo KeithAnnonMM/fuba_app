@@ -5,17 +5,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../controllers/auth_controller.dart';
-
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
+  static final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final LoginController controller = Get.put(LoginController());
     // final AuthController actionControl = Get.put(AuthController());
     String selected = 'Albania';
-    final GlobalKey<FormState> key = GlobalKey<FormState>();
 
     List<String> countries = controller.countries;
     return Scaffold(
@@ -53,7 +51,7 @@ class SignUpPage extends StatelessWidget {
               child: Column(
                 children: [
                   Form(
-                    key: key,
+                    key: formkey,
                     child: Column(
                       children: [
                         TextFormFieldEmail(
@@ -85,8 +83,6 @@ class SignUpPage extends StatelessWidget {
                             textInputAction: TextInputAction.next,
                             textCapitalization: TextCapitalization.none,
                             autocorrect: false,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
                           ),
                         ),
                         Text(
@@ -113,7 +109,6 @@ class SignUpPage extends StatelessWidget {
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.none,
                           autocorrect: true,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
@@ -135,7 +130,6 @@ class SignUpPage extends StatelessWidget {
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.none,
                           autocorrect: true,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
@@ -158,7 +152,6 @@ class SignUpPage extends StatelessWidget {
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.none,
                           autocorrect: true,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
                         DropdownButtonFormField(
                           value: selected,
@@ -219,8 +212,15 @@ class SignUpPage extends StatelessWidget {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              if (key.currentState!.validate()) {
-                                Get.snackbar('Working', 'Thats good so far');
+                              if (formkey.currentState!.validate()) {
+                                if (controller.isCheckedAgreement.value) {
+                                  controller.registerNewUser(
+                                      controller.emailController.text,
+                                      controller.passwordController.text);
+                                } else {
+                                  Get.snackbar('AGREEMENT',
+                                      'Agree to the Terms and Privacy Ploicy to continue');
+                                }
                               }
                             },
                             style: ButtonStyle(

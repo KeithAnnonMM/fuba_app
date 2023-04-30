@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuba_app/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -249,5 +250,21 @@ class LoginController extends GetxController {
       return 'Password can not be empty';
     }
     return null;
+  }
+
+  void registerNewUser(String email, String password) {
+    String message = AuthController.instance
+        .createNewUser(email: email, password: password) as String;
+    if (message != 'success') {
+      Get.snackbar('Failed Attempt', message);
+    }
+  }
+
+  void signInUser(String email, String password) {
+    String message = AuthController.instance
+        .signInUser(email: email, password: password) as String;
+    if (message != 'success') {
+      Get.snackbar('Failed Attempt', message);
+    }
   }
 }

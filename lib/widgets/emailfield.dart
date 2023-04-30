@@ -29,7 +29,6 @@ class TextFormFieldEmail extends StatelessWidget {
       textInputAction: TextInputAction.next,
       textCapitalization: TextCapitalization.none,
       autocorrect: true,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 }

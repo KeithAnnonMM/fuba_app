@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../views/welcome.dart';
 
 class AuthController extends GetxController {
+  static AuthController get instance => Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late Rx<User?> firebaseUser;
 
