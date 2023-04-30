@@ -176,13 +176,37 @@ class SignUpPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        CheckboxListTile(
-                          title: Text('I agree to the Terms and Privacy Policy',
-                              style: GoogleFonts.poppins(fontSize: 14)),
-                          value: isChecked,
-                          onChanged: (bool? value) {
-                            isChecked = value!;
-                          },
+                        Row(
+                          children: [
+                            Obx(
+                              () => Checkbox(
+                                  fillColor:
+                                      MaterialStateProperty.all(Colors.black),
+                                  value: controller.isCheckedAgreement.value,
+                                  onChanged: (value) =>
+                                      controller.changeAgreement()),
+                            ),
+                            Text(
+                              'I agree to the Terms and Privacy Policy',
+                              style: GoogleFonts.poppins(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Obx(
+                              () => Checkbox(
+                                  fillColor:
+                                      MaterialStateProperty.all(Colors.black),
+                                  value: controller.isCheckedPersonal.value,
+                                  onChanged: (value) =>
+                                      controller.changePersonal()),
+                            ),
+                            Text(
+                              'Please use my personal information for the FUBA\nto send me messages and advertisements about\nproducts and initiatives of FUBA and its partners',
+                              style: GoogleFonts.poppins(fontSize: 14),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 10),
                         Container(

@@ -213,7 +213,18 @@ class LoginController extends GetxController {
     'Zimbabwe',
   ];
 
+  var isCheckedAgreement = false.obs;
+  var isCheckedPersonal = false.obs;
+
   void changeOption() {
     isVisible.value = !isVisible.value;
+  }
+
+  void changePersonal() {
+    isCheckedPersonal.value = !isCheckedPersonal.value;
+  }
+
+  void changeAgreement() {
+    isCheckedAgreement.value = !isCheckedAgreement.value;
   }
 }
